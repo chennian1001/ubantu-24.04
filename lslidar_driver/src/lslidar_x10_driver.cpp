@@ -68,6 +68,11 @@ namespace lslidar_driver {
         node_->declare_parameter<float>("n301_protocol", 7.0);
         node_->declare_parameter<bool>("enable_noise_filter", false);
         
+		
+        node_->declare_parameter<bool>("is_MatrixTransformation", false);
+        node_->declare_parameter<std::vector<double>>("transform_main", std::vector<double>());
+        node_->declare_parameter<std::vector<double>>("transform_imu", std::vector<double>());
+
         node_->get_parameter("pcap", dump_file);
         node_->get_parameter("packet_rate", packet_rate);
         node_->get_parameter("frame_id", frame_id);
@@ -99,6 +104,32 @@ namespace lslidar_driver {
         node_->get_parameter("n301_protocol", n301_protocol);
         node_->get_parameter("enable_noise_filter", enable_noise_filter);
         
+		// 获取转换矩阵
+        node_->get_parameter("is_MatrixTransformation", is_MatrixTransformation);
+        auto tTransform_main = node_->get_parameter("transform_main").as_double_array();
+        auto tTransform_imu = node_->get_parameter("transform_imu").as_double_array();
+
+        Eigen::Matrix4f MatrixTransform_main;
+        Eigen::Matrix4f MatrixTransform_imu;
+
+        for (int i = 0; i < 16; ++i) {
+            if (!tTransform_main.empty()) MatrixTransform_main(i / 4, i % 4) = tTransform_main[i];
+            if (!tTransform_imu.empty()) MatrixTransform_imu(i / 4, i % 4) = tTransform_imu[i];
+        }
+
+        if ((!tTransform_main.empty()) && (!tTransform_imu.empty()))
+        {
+            MatrixTransform_result = MatrixTransform_main * MatrixTransform_imu;
+        }
+        else if ((tTransform_main.empty()) && (!tTransform_imu.empty()))
+        {
+            MatrixTransform_result = MatrixTransform_imu;
+        }
+        else
+        {
+            MatrixTransform_result = MatrixTransform_main;
+        }
+
         return true;
     }
 
@@ -268,7 +299,9 @@ namespace lslidar_driver {
         }
 
         auto pc_msg = std::make_shared<sensor_msgs::msg::PointCloud2>();
-        if (is_pretreatment) pointcloud_transform_.applyTransform(*point_cloud_xyzi_bak_);           
+        if (is_pretreatment) pointcloud_transform_.applyTransform(*point_cloud_xyzi_bak_);
+		if (is_MatrixTransformation) pointcloud_transform_.applyTransform_2(*point_cloud_xyzi_bak_, MatrixTransform_result);
+            
         pcl::toROSMsg(*point_cloud_xyzi_bak_, *pc_msg);
 
         pc_msg->header.stamp = rclcpp::Time(sweep_end_time * 1000000000LL); 

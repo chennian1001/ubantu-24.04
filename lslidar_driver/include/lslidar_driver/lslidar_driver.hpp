@@ -97,6 +97,9 @@ namespace lslidar_driver {
         bool use_absolute_time;
         bool is_pretreatment;
 
+        bool is_MatrixTransformation;       //是否进行输入矩阵转换
+        Eigen::Matrix4f MatrixTransform_result;             //最终的矩阵
+
         int msop_udp_port;
         int difop_udp_port;
         int point_time_offset;

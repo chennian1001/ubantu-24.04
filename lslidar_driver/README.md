@@ -1,7 +1,7 @@
-# LSLIDAR_ROS2_V5.1.0_250507 使用说明
+# LSLIDAR_ROS2_V5.1.1_250523 使用说明
 
 ## 1.工程介绍
-​		LSLIDAR_ROS2_V5.1.0_250507为linux环境下雷达ROS2驱动，程序在Ubuntu 18.04 ROS2 Dashing 和 Ubuntu 18.04 ROS2 Eloquent 和 Ubuntu 20.04 ROS2 Foxy 和 Ubuntu 20.04 ROS2 Galactic 和 Ubuntu 22.04 ROS2 Humble 和 Ubuntu 24.04 ROS2 Jazzy 和 Ubuntu 24.04 ROS2 Rolling下测试通过。
+​		LSLIDAR_ROS2_V5.1.1_250523为linux环境下雷达ROS2驱动，程序在Ubuntu 18.04 ROS2 Dashing 和 Ubuntu 18.04 ROS2 Eloquent 和 Ubuntu 20.04 ROS2 Foxy 和 Ubuntu 20.04 ROS2 Galactic 和 Ubuntu 22.04 ROS2 Humble 和 Ubuntu 24.04 ROS2 Jazzy 和 Ubuntu 24.04 ROS2 Rolling下测试通过。
 
 #### 1.1 支持的雷达型号
 
@@ -139,7 +139,46 @@ cx:  							  # 确保与对应launch文件中命名空间一致
       roll: 0.0                   # X轴旋转(rad)
       pitch: 0.0                  # Y轴旋转(rad)
       yaw: 0.0                    # Z轴旋转(rad)
-
+      
+      is_MatrixTransformation: false  # 预处理开关 true 使用以下两个(4*4)矩阵进行转换(若只转换一次，可将其中一个删除)，false不使用
+      transform_main:
+        [
+          0.3514713644981384,
+          0.3227383494377136,
+          0.878810465335846,
+          1.250789999961853,
+          -0.17116132378578186,
+          0.9450311660766602,
+          -0.27860331535339355,
+          -0.3601331412792206,
+          -0.9204192757606506,
+          -0.05249723792076111,
+          0.38739171624183655,
+          1.9063990116119385,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+        ]
+      transform_imu:
+        [
+          0.999537,
+          -0.030429,
+          0.00027,
+          -1.047623,
+          0.030413,
+          0.999231,
+          0.024782,
+          5.966497,
+          -0.001024,
+          -0.024763,
+          0.999693,
+          0.638128,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+        ]
       # pcap: "xxx.pcap"          # PCAP文件路径，离线解析PCAP数据时打开注释
 ~~~
 
@@ -220,18 +259,19 @@ cx:  							  # 确保与对应launch文件中命名空间一致
 
 - **is_pretreatment**
 
-  点云预处理，此值为ture时点云数据根据以下参数进行空间位置和方向的变换。
-
+  - 点云预处理，此值为ture时点云数据根据以下参数进行空间位置和方向的变换。
   - **`x_offset`**: rviz2 中表现为围绕红色的 x 轴偏移量 单位: m 
   - **`y_offset`**: rviz2 中表现为围绕绿色的 y 轴偏移量 单位: m
   - **`z_offset`**: rviz2 中表现为围绕蓝色的 z 轴偏移量 单位: m
   - **`roll`**:    rviz2 中表现为围绕红色的 x 轴旋转   单位: rad
   - **`pitch`**:  rviz2 中表现为围绕绿色的 y 轴旋转   单位: rad
   - **`yaw`**:      rviz 中表现为围绕蓝色的 z 轴旋转   单位: rad
+  
+- is_MatrixTransformation
 
-
-
-
+  - 点云预处理，此值为ture时点云数据根据使用以下两个矩阵参数进行空间位置和方向的变换。 若只转换一次，可将其中一个删除
+  - transform_main：变换的矩阵参数1， 4*4矩阵
+  - transform_imu：变换的矩阵参数2， 4*4矩阵
 
 
 ### 特殊参数说明：
@@ -626,7 +666,7 @@ Date    : 2025-03-05
 
 Update version : LSLIDAR_ROS2_V5.1.0_250430
 
-Modify: original version
+Modify: 
 
 1. 新增兼容M10, M10GPS, M10P, N10, N10Plus, N301雷达
 1. N10Plus雷达新增MultiEchoLaserScan消息
@@ -641,7 +681,7 @@ Date    : 2025-04-30
 
 Update version : LSLIDAR_ROS2_V5.1.0_250507
 
-Modify: original version
+Modify: 
 
 1. 新增git 的管理
 
@@ -649,3 +689,10 @@ Date    : 2025-05-07
 
 --------------------------------------------------------------------
 
+Update version : LSLIDAR_ROS2_V5.1.1_250523
+
+Modify: 
+
+1. 新增矩阵参数，进行预处理
+
+Date    : 2025-05-23

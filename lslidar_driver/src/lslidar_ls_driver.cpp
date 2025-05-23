@@ -72,6 +72,10 @@ namespace lslidar_driver {
         bool is_add_frame_tmp = false;
         node_->declare_parameter<bool>("is_add_frame", false);
 
+        node_->declare_parameter<bool>("is_MatrixTransformation", false);
+        node_->declare_parameter<std::vector<double>>("transform_main", std::vector<double>());
+        node_->declare_parameter<std::vector<double>>("transform_imu", std::vector<double>());
+
         node_->get_parameter("pcap", dump_file);
         node_->get_parameter("packet_rate", packet_rate);
         node_->get_parameter("frame_id", frame_id);
@@ -101,6 +105,32 @@ namespace lslidar_driver {
         node_->get_parameter("is_add_frame", is_add_frame_tmp);
 
         is_add_frame_.store(is_add_frame_tmp); 
+
+        // 获取转换矩阵
+        node_->get_parameter("is_MatrixTransformation", is_MatrixTransformation);
+        auto tTransform_main = node_->get_parameter("transform_main").as_double_array();
+        auto tTransform_imu = node_->get_parameter("transform_imu").as_double_array();
+
+        Eigen::Matrix4f MatrixTransform_main;
+        Eigen::Matrix4f MatrixTransform_imu;
+
+        for (int i = 0; i < 16; ++i) {
+            if (!tTransform_main.empty()) MatrixTransform_main(i / 4, i % 4) = tTransform_main[i];
+            if (!tTransform_imu.empty()) MatrixTransform_imu(i / 4, i % 4) = tTransform_imu[i];
+        }
+
+        if ((!tTransform_main.empty()) && (!tTransform_imu.empty()))
+        {
+            MatrixTransform_result = MatrixTransform_main * MatrixTransform_imu;
+        }
+        else if ((tTransform_main.empty()) && (!tTransform_imu.empty()))
+        {
+            MatrixTransform_result = MatrixTransform_imu;
+        }
+        else
+        {
+            MatrixTransform_result = MatrixTransform_main;
+        }
 
         return true;
     }
@@ -351,7 +381,8 @@ namespace lslidar_driver {
         point_cloud_xyzirt_pub_->height = 1;
 
         if (is_pretreatment) pointcloud_transform_.applyTransform(*point_cloud_xyzirt_pub_);
-
+        if (is_MatrixTransformation) pointcloud_transform_.applyTransform_2(*point_cloud_xyzirt_pub_, MatrixTransform_result);
+        
         auto pc_msg = std::make_shared<sensor_msgs::msg::PointCloud2>();    
         pcl::toROSMsg(*point_cloud_xyzirt_pub_, *pc_msg);
         point_cloud_time = (point_cloud_time > 2147483647.0) ? (point_cloud_time - 2208988800.0) : point_cloud_time;

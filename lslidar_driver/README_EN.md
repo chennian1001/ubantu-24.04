@@ -1,7 +1,7 @@
-## Instruction Manual for LSLIDAR_ROS2_V5.1.0_250507
+## Instruction Manual for LSLIDAR_ROS2_V5.1.1_250523
 
 ### 1.Project Introduction
-​		LSLIDAR_ROS2_V5.1.0_250507 is a ROS2 driver for LiDAR in Linux environments. The program has been successfully tested on Ubuntu 18.04 with ROS2 Dashing, Ubuntu 18.04 ROS2 with Eloquent, Ubuntu 20.04 with ROS2 Foxy, Ubuntu 20.04 with ROS2 Galactic, Ubuntu 22.04 with ROS2 Humble, Ubuntu 24.04 with ROS2 Jazzy, and Ubuntu 24.04 with ROS2 Rolling.
+​		LSLIDAR_ROS2_V5.1.1_250523 is a ROS2 driver for LiDAR in Linux environments. The program has been successfully tested on Ubuntu 18.04 with ROS2 Dashing, Ubuntu 18.04 ROS2 with Eloquent, Ubuntu 20.04 with ROS2 Foxy, Ubuntu 20.04 with ROS2 Galactic, Ubuntu 22.04 with ROS2 Humble, Ubuntu 24.04 with ROS2 Jazzy, and Ubuntu 24.04 with ROS2 Rolling.
 
 #### 1.1  Supported Lidar Models
 
@@ -140,6 +140,45 @@ cx:                     # Ensure namespace matches corresponding launch files
       pitch: 0.0                  # Y-axis rotation (radians)
       yaw: 0.0                    # Z-axis rotation (radians)
 
+      is_MatrixTransformation: false  # The preprocessing switch true uses the following two (4 * 4) matrices for conversion (if only converted once, one can be removed), false does not use
+      transform_main:
+        [
+          0.3514713644981384,
+          0.3227383494377136,
+          0.878810465335846,
+          1.250789999961853,
+          -0.17116132378578186,
+          0.9450311660766602,
+          -0.27860331535339355,
+          -0.3601331412792206,
+          -0.9204192757606506,
+          -0.05249723792076111,
+          0.38739171624183655,
+          1.9063990116119385,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+        ]
+      transform_imu:
+        [
+          0.999537,
+          -0.030429,
+          0.00027,
+          -1.047623,
+          0.030413,
+          0.999231,
+          0.024782,
+          5.966497,
+          -0.001024,
+          -0.024763,
+          0.999693,
+          0.638128,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+        ]
       # pcap: "xxx.pcap"          # PCAP file path (for offline parsing)
 ~~~
 
@@ -224,14 +263,16 @@ cx:                     # Ensure namespace matches corresponding launch files
 
   - **`x_offset`**: Visualized as displacement along the red X-axis in rviz2 (unit: m)  
   - **`y_offset`**: Visualized as displacement along the green Y-axis in rviz2 (unit: m)  
-  
   - **`z_offset`**: Visualized as displacement along the blue Z-axis in rviz2 (unit: m)  
-  
   - **`roll`**:    Visualized as rotation about the red X-axis in rviz2 (unit: rad)  
-
   - **`pitch`**:  Visualized as rotation about the green Y-axis in rviz2 (unit: rad)  
+  - **`yaw`**:     Visualized as rotation about the blue Z-axis in rviz2 (unit: rad)
   
-  -  **`yaw`**:     Visualized as rotation about the blue Z-axis in rviz2 (unit: rad)
+- is_MatrixTransformation
+
+  - Point cloud preprocessing, this value represents the transformation of the spatial position and direction of the point cloud data using the following two matrix parameters. If you only convert once, you can delete one of them
+  - Transform_main: matrix parameters of transformation 1,  4 * 4 matrix
+  - Transform_imu: Matrix parameter for transformation 2,  4 * 4 matrix
   
     
   
@@ -619,7 +660,7 @@ Bug Report
 
 Original version : LSLIDAR_ROS2_V5.0.9_250305
 
-Modify: original version
+Modify:
 
 Date    : 2025-03-05
 
@@ -629,7 +670,7 @@ Date    : 2025-03-05
 
 Update version : LSLIDAR_ROS2_V5.1.0_250430
 
-Modify: original version
+Modify:
 
 1. Added compatibility with the M10, M10GPS, M10P, N10, N10Plus, N301 LiDAR.
 1. N10Plus LiDAR adds MultiEchoLaserScan message.
@@ -644,8 +685,17 @@ Date    : 2025-04-30
 
 Update version : LSLIDAR_ROS2_V5.1.0_250507
 
-Modify: original version
+Modify: 
 
 1. Added git management.
 
 Date    : 2025-05-07
+
+------
+
+Update version : LSLIDAR_ROS2_V5.1.1_250523
+
+Modify: 
+1. Add matrix parameters for preprocessing
+
+Date    : 2025-05-23

@@ -78,6 +78,10 @@ namespace lslidar_driver {
         node_->declare_parameter<double>("horizontal_angle_resolution", 0.2);
         node_->declare_parameter<bool>("publish_scan", false);
 
+        node_->declare_parameter<bool>("is_MatrixTransformation", false);
+        node_->declare_parameter<std::vector<double>>("transform_main", std::vector<double>());
+        node_->declare_parameter<std::vector<double>>("transform_imu", std::vector<double>());
+
         node_->get_parameter("pcap", dump_file);
         node_->get_parameter("packet_rate", packet_rate);
         node_->get_parameter("frame_id", frame_id);
@@ -106,6 +110,32 @@ namespace lslidar_driver {
         node_->get_parameter("scan_num", scan_num);
         node_->get_parameter("horizontal_angle_resolution", horizontal_angle_resolution);
         node_->get_parameter("publish_scan", publish_scan);
+
+        // 获取转换矩阵
+        node_->get_parameter("is_MatrixTransformation", is_MatrixTransformation);
+        auto tTransform_main = node_->get_parameter("transform_main").as_double_array();
+        auto tTransform_imu = node_->get_parameter("transform_imu").as_double_array();
+
+        Eigen::Matrix4f MatrixTransform_main;
+        Eigen::Matrix4f MatrixTransform_imu;
+
+        for (int i = 0; i < 16; ++i) {
+            if (!tTransform_main.empty()) MatrixTransform_main(i / 4, i % 4) = tTransform_main[i];
+            if (!tTransform_imu.empty()) MatrixTransform_imu(i / 4, i % 4) = tTransform_imu[i];
+        }
+
+        if (!(tTransform_main.empty()) && (!tTransform_imu.empty()))
+        {
+            MatrixTransform_result = MatrixTransform_main * MatrixTransform_imu;
+        }
+        else if ((tTransform_main.empty()) && (!tTransform_imu.empty()))
+        {
+            MatrixTransform_result = MatrixTransform_imu;
+        }
+        else
+        {
+            MatrixTransform_result = MatrixTransform_main;
+        }
 
         return true;
     }
@@ -325,10 +355,14 @@ namespace lslidar_driver {
         if (pcl_type) {
             if (point_cloud_xyzi_bak_->points.size() < 50) return;
             if (is_pretreatment) pointcloud_transform_.applyTransform(*point_cloud_xyzi_bak_);
+            if (is_MatrixTransformation) pointcloud_transform_.applyTransform_2(*point_cloud_xyzi_bak_, MatrixTransform_result);
+
             pcl::toROSMsg(*point_cloud_xyzi_bak_, *pc_msg);
         } else {
             if (point_cloud_xyzirt_bak_->points.size() < 50) return;
-            if (is_pretreatment) pointcloud_transform_.applyTransform(*point_cloud_xyzirt_bak_);           
+            if (is_pretreatment) pointcloud_transform_.applyTransform(*point_cloud_xyzirt_bak_);
+            if (is_MatrixTransformation) pointcloud_transform_.applyTransform_2(*point_cloud_xyzirt_bak_, MatrixTransform_result);
+            
             pcl::toROSMsg(*point_cloud_xyzirt_bak_, *pc_msg);
         }
 
