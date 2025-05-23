@@ -308,10 +308,11 @@ namespace lslidar_driver {
             LS_WARN << "Failed to create ROS2 interfaces" << LS_END;
             return false;
         }
-        
+
+        rclcpp::sleep_for(std::chrono::seconds(1));
         while (rclcpp::ok() && !determineLidarModel()) {
             LS_WARN << "Lidar model error, please check Lidar model. Retrying..." << LS_END;
-            rclcpp::sleep_for(std::chrono::seconds(1));
+    	    rclcpp::sleep_for(std::chrono::seconds(1));
         }
         
         if (!initAngleConfig()) {
