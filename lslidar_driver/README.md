@@ -1,7 +1,7 @@
-# LSLIDAR_ROS2_V5.1.1_250524 使用说明
+# LSLIDAR_ROS2_V5.1.1_250527 使用说明
 
 ## 1.工程介绍
-​		LSLIDAR_ROS2_V5.1.1_250524为linux环境下雷达ROS2驱动，程序在Ubuntu 18.04 ROS2 Dashing 和 Ubuntu 18.04 ROS2 Eloquent 和 Ubuntu 20.04 ROS2 Foxy 和 Ubuntu 20.04 ROS2 Galactic 和 Ubuntu 22.04 ROS2 Humble 和 Ubuntu 24.04 ROS2 Jazzy 和 Ubuntu 24.04 ROS2 Rolling下测试通过。
+​		LSLIDAR_ROS2_V5.1.1_250527为linux环境下雷达ROS2驱动，程序在Ubuntu 18.04 ROS2 Dashing 和 Ubuntu 18.04 ROS2 Eloquent 和 Ubuntu 20.04 ROS2 Foxy 和 Ubuntu 20.04 ROS2 Galactic 和 Ubuntu 22.04 ROS2 Humble 和 Ubuntu 24.04 ROS2 Jazzy 和 Ubuntu 24.04 ROS2 Rolling下测试通过。
 
 #### 1.1 支持的雷达型号
 
@@ -689,10 +689,10 @@ Date    : 2025-05-07
 
 --------------------------------------------------------------------
 
-Update version : LSLIDAR_ROS2_V5.1.1_250524
+Update version : LSLIDAR_ROS2_V5.1.1_250527
 
 Modify: 
 
 1. 新增矩阵参数，进行预处理
 
-Date    : 2025-05-24
+Date    : 2025-05-27

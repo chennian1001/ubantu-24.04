@@ -34,6 +34,7 @@
 #include <signal.h>
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/time_reference.hpp>
+#include <math.h>
 
 #include "lslidar_driver/lslidar_log.hpp"
 #include "lslidar_msgs/msg/lslidar_packet.hpp"

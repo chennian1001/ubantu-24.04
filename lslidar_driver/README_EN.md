@@ -1,7 +1,7 @@
-## Instruction Manual for LSLIDAR_ROS2_V5.1.1_250524
+## Instruction Manual for LSLIDAR_ROS2_V5.1.1_250527
 
 ### 1.Project Introduction
-​		LSLIDAR_ROS2_V5.1.1_250524 is a ROS2 driver for LiDAR in Linux environments. The program has been successfully tested on Ubuntu 18.04 with ROS2 Dashing, Ubuntu 18.04 ROS2 with Eloquent, Ubuntu 20.04 with ROS2 Foxy, Ubuntu 20.04 with ROS2 Galactic, Ubuntu 22.04 with ROS2 Humble, Ubuntu 24.04 with ROS2 Jazzy, and Ubuntu 24.04 with ROS2 Rolling.
+​		LSLIDAR_ROS2_V5.1.1_250527 is a ROS2 driver for LiDAR in Linux environments. The program has been successfully tested on Ubuntu 18.04 with ROS2 Dashing, Ubuntu 18.04 ROS2 with Eloquent, Ubuntu 20.04 with ROS2 Foxy, Ubuntu 20.04 with ROS2 Galactic, Ubuntu 22.04 with ROS2 Humble, Ubuntu 24.04 with ROS2 Jazzy, and Ubuntu 24.04 with ROS2 Rolling.
 
 #### 1.1  Supported Lidar Models
 
@@ -693,9 +693,9 @@ Date    : 2025-05-07
 
 ------
 
-Update version : LSLIDAR_ROS2_V5.1.1_250524
+Update version : LSLIDAR_ROS2_V5.1.1_250527
 
 Modify: 
 1. Add matrix parameters for preprocessing
 
-Date    : 2025-05-24
+Date    : 2025-05-27
