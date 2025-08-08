@@ -242,21 +242,37 @@ namespace lslidar_driver {
             ch256_sin_theta_2[k1] = sin((k1 % 4) * 0.11 * DEG_TO_RAD);
             ch256_cos_theta_2[k1] = cos((k1 % 4) * 0.11 * DEG_TO_RAD);
         }
-        // ch64w
-        for (int m = 0; m < 128; ++m) {
-            //右边
-            if (m / 4 % 2 == 0) {
-                ch64w_sin_theta_1[m] = sin((-25 + floor(m / 8) * 2.5) * DEG_TO_RAD);
-                ch64w_sin_theta_2[m] = sin((m % 4) * 0.35 * DEG_TO_RAD);
-                ch64w_cos_theta_1[m] = cos((-25 + floor(m / 8) * 2.5) * DEG_TO_RAD);
-                ch64w_cos_theta_2[m] = cos((m % 4) * 0.35 * DEG_TO_RAD);
-            } else { //左边
-                ch64w_sin_theta_1[m] = sin((-24 + prism_offset + floor(m / 8) * 2.5) * DEG_TO_RAD);
-                ch64w_sin_theta_2[m] = sin((m % 4) * 0.35 * DEG_TO_RAD);
-                ch64w_cos_theta_1[m] = cos((-24 + prism_offset + floor(m / 8) * 2.5) * DEG_TO_RAD);
-                ch64w_cos_theta_2[m] = cos((m % 4) * 0.35 * DEG_TO_RAD);
+
+        if(lidar_model == "CH1W")
+        {
+            // CH1W
+            for (int m = 0; m < 128; ++m) {
+                ch64w_sin_theta_1[m] = sin(0);
+                ch64w_sin_theta_2[m] = sin(0);
+                ch64w_cos_theta_1[m] = cos(0);
+                ch64w_cos_theta_2[m] = cos(0);
             }
         }
+        else
+        {
+            // ch64w
+            for (int m = 0; m < 128; ++m) {
+                //右边
+                if (m / 4 % 2 == 0) {
+                    ch64w_sin_theta_1[m] = sin((-25 + floor(m / 8) * 2.5) * DEG_TO_RAD);
+                    ch64w_sin_theta_2[m] = sin((m % 4) * 0.35 * DEG_TO_RAD);
+                    ch64w_cos_theta_1[m] = cos((-25 + floor(m / 8) * 2.5) * DEG_TO_RAD);
+                    ch64w_cos_theta_2[m] = cos((m % 4) * 0.35 * DEG_TO_RAD);
+                } else { //左边
+                    ch64w_sin_theta_1[m] = sin((-24 + prism_offset + floor(m / 8) * 2.5) * DEG_TO_RAD);
+                    ch64w_sin_theta_2[m] = sin((m % 4) * 0.35 * DEG_TO_RAD);
+                    ch64w_cos_theta_1[m] = cos((-24 + prism_offset + floor(m / 8) * 2.5) * DEG_TO_RAD);
+                    ch64w_cos_theta_2[m] = cos((m % 4) * 0.35 * DEG_TO_RAD);
+                }
+            }
+        }
+
+
 
         //CB64S1_A
         for (int m = 0; m < 64; ++m) {
@@ -345,6 +361,7 @@ namespace lslidar_driver {
         coordinateConverters["CX6S3"] = [this](Firing &data){ convertCoordinate_cx6s3(data); };
         coordinateConverters["CH16X1"] = [this](Firing &data){ convertCoordinate_ch16x1(data); };
         coordinateConverters["CH32A"] = [this](Firing &data){ convertCoordinate_ch32a(data); };
+        coordinateConverters["CH1W"] = [this](Firing &data){ convertCoordinate_ch64w(data); };
         coordinateConverters["CH64W"] = [this](Firing &data){ convertCoordinate_ch64w(data); };
         coordinateConverters["CB64S1_A"] = [this](Firing &data){ convertCoordinate_cb64s1_a(data); };
         coordinateConverters["CX126S3"] = [this](Firing &data){ convertCoordinate_cx126s3(data); };
@@ -371,7 +388,7 @@ namespace lslidar_driver {
             scan_msg->range_max = max_range;
             scan_msg->angle_increment = horizontal_angle_resolution * DEG_TO_RAD;
             point_size = ceil((scan_msg->angle_max - scan_msg->angle_min) / scan_msg->angle_increment);
-            if (lidar_model == "CH64W" || lidar_model == "CB64S1_A") { point_size *= 2; }
+            if (lidar_model == "CH1W" || lidar_model == "CH64W" || lidar_model == "CB64S1_A") { point_size *= 2; }
             scan_msg->ranges.assign(point_size, std::numeric_limits<float>::infinity());
             scan_msg->intensities.assign(point_size, std::numeric_limits<float>::quiet_NaN());
         }
@@ -571,7 +588,31 @@ namespace lslidar_driver {
                                     ch16x1_cos_theta_1[k] = cos(big_angle_ch16x1[k / 4] * DEG_TO_RAD);
                                 }
                             }
-                        } else if (lidar_model == "CH64W") {
+                        } else if (lidar_model == "CH1W") {
+                            for (int m = 0; m < 8; ++m) {
+                                if (fabs(this->prism_angle[0]) < 1e-6 && fabs(this->prism_angle[1]) < 1e-6 &&
+                                    fabs(this->prism_angle[2]) < 1e-6 && fabs(this->prism_angle[3]) < 1e-6) {     
+                                    //右边
+                                    if (m / 4 % 2 == 0) {
+
+                                    } else { //左边
+                                        ch64w_sin_theta_1[m] = sin((0 + prism_offset) * DEG_TO_RAD);
+                                        ch64w_cos_theta_1[m] = cos((0 + prism_offset) * DEG_TO_RAD);                                               
+                                    }
+                                } else {
+                                    //右边
+                                    if (m / 4 % 2 == 0) {
+                                        ch64w_sin_theta_2[m] = sin(prism_angle[m % 4] * DEG_TO_RAD);
+                                        ch64w_cos_theta_2[m] = cos(prism_angle[m % 4] * DEG_TO_RAD);
+                                    } else { //左边
+                                        ch64w_sin_theta_1[m] = sin(prism_offset * DEG_TO_RAD);                                        
+                                        ch64w_cos_theta_1[m] = cos(prism_offset * DEG_TO_RAD);
+                                        ch64w_sin_theta_2[m] = sin(prism_angle[m % 4] * DEG_TO_RAD);                                               
+                                        ch64w_cos_theta_2[m] = cos(prism_angle[m % 4] * DEG_TO_RAD);
+                                    }
+                                }
+                            }
+                        } else if (lidar_model == "CH64W") {                 
                             for (int m = 0; m < 128; ++m) {
                                 if (fabs(this->prism_angle[0]) < 1e-6 && fabs(this->prism_angle[1]) < 1e-6 &&
                                     fabs(this->prism_angle[2]) < 1e-6 && fabs(this->prism_angle[3]) < 1e-6) {     
@@ -627,7 +668,7 @@ namespace lslidar_driver {
                         this->packetTimeStamp[9] = difop_packet->data[36];
                     }
 
-                    if ("CH128X1" == lidar_model || "CH64W" == lidar_model || "CB64S1_A" == lidar_model) {
+                    if ("CH128X1" == lidar_model || "CH1W" == lidar_model || "CH64W" == lidar_model || "CB64S1_A" == lidar_model) {
                         if (difop_packet->data[176] == 0x00) {
                             this->packetTimeStamp[7] = difop_packet->data[54];
                             this->packetTimeStamp[8] = difop_packet->data[53];
@@ -659,7 +700,7 @@ namespace lslidar_driver {
         }
 
         if (use_time_service) {
-            if ("CH128X1" == lidar_model || "CH64W" == lidar_model || "CB64S1_A" == lidar_model || "CH32A" == lidar_model) {
+            if ("CH128X1" == lidar_model || "CH1W" == lidar_model || "CH64W" == lidar_model || "CB64S1_A" == lidar_model || "CH32A" == lidar_model) {
                 if (packet_->data[1205] == 0x01) {
                     this->packetTimeStamp[4] = packet_->data[1199];
                     this->packetTimeStamp[5] = packet_->data[1198];
@@ -774,7 +815,7 @@ namespace lslidar_driver {
                     scan_msg->range_max = max_range;
                     scan_msg->angle_increment = horizontal_angle_resolution * DEG_TO_RAD;
                     point_size = ceil((scan_msg->angle_max - scan_msg->angle_min) / scan_msg->angle_increment);
-                    if (lidar_model == "CH64W" || lidar_model == "CB64S1_A") { point_size *= 2; }
+                    if (lidar_model == "CH1W" || "CH64W" == lidar_model || lidar_model == "CB64S1_A") { point_size *= 2; }
                     scan_msg->ranges.assign(point_size, std::numeric_limits<float>::infinity());
                     scan_msg->intensities.assign(point_size, std::numeric_limits<float>::quiet_NaN());
                 }
@@ -868,7 +909,7 @@ namespace lslidar_driver {
                     scan_msg->range_max = max_range;
                     scan_msg->angle_increment = horizontal_angle_resolution * DEG_TO_RAD;
                     point_size = ceil((scan_msg->angle_max - scan_msg->angle_min) / scan_msg->angle_increment);
-                    if (lidar_model == "CH64W" || lidar_model == "CB64S1_A") { point_size *= 2; }
+                    if (lidar_model == "CH1W" || lidar_model == "CH64W" || lidar_model == "CB64S1_A") { point_size *= 2; }
                     scan_msg->ranges.assign(point_size, std::numeric_limits<float>::infinity());
                     scan_msg->intensities.assign(point_size, std::numeric_limits<float>::quiet_NaN());
                 }

@@ -8,7 +8,8 @@ x10:
       msop_port: 2368             # 雷达目的数据端口
       difop_port: 2369            # 雷达目的设备端口
       packet_rate: 188.0          # PCAP文件回放速率，离线解析PCAP数据时使用
-
+      #pcap: "/home/ls/Desktop/lidar_data.pcap"          # PCAP文件路径，离线解析PCAP数据时打开注释
+      
       # 点云处理参数
       frame_id: "laser_link"      # 坐标系名称
       pointcloud_topic: "lslidar_point_cloud"  # 点云话题名
@@ -73,4 +74,4 @@ x10:
           0.0,
           1.0,
         ]
-      # pcap: "xxx.pcap"          # PCAP文件路径，离线解析PCAP数据时打开注释
+

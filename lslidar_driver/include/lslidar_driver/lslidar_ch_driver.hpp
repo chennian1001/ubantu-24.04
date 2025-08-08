@@ -30,9 +30,9 @@ namespace lslidar_driver {
 
     constexpr double CH_DISTANCE_RESOLUTION = 0.0000390625;
     constexpr double sqrt_0_5 = std::sqrt(0.5);
-    constexpr double pow1 = -3.6636 * pow(10, -7);
-    constexpr double pow2 = 5.2766 * pow(10, -5);
-    constexpr double pow3 = 1.4507 * pow(10, -4);
+    constexpr double pow1 = -0.00000036636;
+    constexpr double pow2 = 0.000052766;
+    constexpr double pow3 = 0.00014507;
     
     constexpr double big_angle[32] = {
         -17, -16, -15, -14, -13, -12, -11, -10, -9, -8, -7, -6, -5, -4.125, -4, -3.125,

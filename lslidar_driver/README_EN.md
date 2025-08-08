@@ -1,7 +1,7 @@
-## Instruction Manual for LSLIDAR_ROS2_V5.1.1_250527
+## Instruction Manual for LSLIDAR_ROS2_V5.1.1_250808
 
 ### 1.Project Introduction
-​		LSLIDAR_ROS2_V5.1.1_250527 is a ROS2 driver for LiDAR in Linux environments. The program has been successfully tested on Ubuntu 18.04 with ROS2 Dashing, Ubuntu 18.04 ROS2 with Eloquent, Ubuntu 20.04 with ROS2 Foxy, Ubuntu 20.04 with ROS2 Galactic, Ubuntu 22.04 with ROS2 Humble, Ubuntu 24.04 with ROS2 Jazzy, and Ubuntu 24.04 with ROS2 Rolling.
+​		LSLIDAR_ROS2_V5.1.1_250808 is a ROS2 driver for LiDAR in Linux environments. The program has been successfully tested on Ubuntu 18.04 with ROS2 Dashing, Ubuntu 18.04 ROS2 with Eloquent, Ubuntu 20.04 with ROS2 Foxy, Ubuntu 20.04 with ROS2 Galactic, Ubuntu 22.04 with ROS2 Humble, Ubuntu 24.04 with ROS2 Jazzy, and Ubuntu 24.04 with ROS2 Rolling.
 
 #### 1.1  Supported Lidar Models
 
@@ -19,7 +19,7 @@ C1 C1P C4 C8 C8F CKM8 MSC16 C16_domestic C32W C32WB C32WN C32WP CH32R CH32RN
 
 ~~~elixir
 # # 905 Hybrid Solid-State LiDAR
-CX1S3 CX6S3 CH16X1 CH32A CH64W CB64S1_A CX126S3 CH128X1 CH128S1 CX128S2 CH256
+CX1S3 CX6S3 CH16X1 CH32A CH64W CB64S1_A CX126S3 CH128X1 CH128S1 CX128S2 CH256 CH1W
 ~~~
 
 ```apl
@@ -114,7 +114,8 @@ cx:                     # Ensure namespace matches corresponding launch files
       packet_rate: 1695.0         # PCAP playback rate (for offline parsing)
       add_multicast: false        # Enable multicast
       group_ip: "224.1.1.2"       # Multicast IP address
-
+      # pcap: "xxx.pcap"          # PCAP file path (for offline parsing)
+      
       # Point cloud processing
       pcl_type: false             # Point cloud type format: true=XYZI
       frame_id: "laser_link"      # Coordinate frame name
@@ -179,7 +180,6 @@ cx:                     # Ensure namespace matches corresponding launch files
           0.0,
           1.0,
         ]
-      # pcap: "xxx.pcap"          # PCAP file path (for offline parsing)
 ~~~
 
 ### Explanation of Main Parameters：
@@ -699,3 +699,17 @@ Modify:
 1. Add matrix parameters for preprocessing
 
 Date    : 2025-05-27
+
+------
+
+Update version : LSLIDAR_ROS2_V5.1.2_250808
+
+Modify: 
+
+1. Added compatibility for the customized version of C_v3.0 with a data packet length of 1212 bytes
+2. Compatibility with the  added CH1W lidar model
+
+Date    : 2025-08-08
+
+------
+

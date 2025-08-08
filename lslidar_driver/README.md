@@ -1,7 +1,7 @@
-# LSLIDAR_ROS2_V5.1.1_250527 使用说明
+# LSLIDAR_ROS2_V5.1.2_250808 使用说明
 
 ## 1.工程介绍
-​		LSLIDAR_ROS2_V5.1.1_250527为linux环境下雷达ROS2驱动，程序在Ubuntu 18.04 ROS2 Dashing 和 Ubuntu 18.04 ROS2 Eloquent 和 Ubuntu 20.04 ROS2 Foxy 和 Ubuntu 20.04 ROS2 Galactic 和 Ubuntu 22.04 ROS2 Humble 和 Ubuntu 24.04 ROS2 Jazzy 和 Ubuntu 24.04 ROS2 Rolling下测试通过。
+​		LSLIDAR_ROS2_V5.1.2_250808为linux环境下雷达ROS2驱动，程序在Ubuntu 18.04 ROS2 Dashing 和 Ubuntu 18.04 ROS2 Eloquent 和 Ubuntu 20.04 ROS2 Foxy 和 Ubuntu 20.04 ROS2 Galactic 和 Ubuntu 22.04 ROS2 Humble 和 Ubuntu 24.04 ROS2 Jazzy 和 Ubuntu 24.04 ROS2 Rolling下测试通过。
 
 #### 1.1 支持的雷达型号
 
@@ -19,7 +19,7 @@ C1 C1P C4 C8 C8F CKM8 MSC16 C16_domestic C32W C32WB C32WN C32WP CH32R CH32RN
 
 ~~~elixir
 # 905混合固态雷达
-CX1S3 CX6S3 CH16X1 CH32A CH64W CB64S1_A CX126S3 CH128X1 CH128S1 CX128S2 CH256
+CX1S3 CX6S3 CH16X1 CH32A CH64W CB64S1_A CX126S3 CH128X1 CH128S1 CX128S2 CH256 CH1W 
 ~~~
 
 ```apl
@@ -114,7 +114,8 @@ cx:  							  # 确保与对应launch文件中命名空间一致
       packet_rate: 1695.0         # PCAP文件回放速率，离线解析PCAP数据时使用
       add_multicast: false        # 雷达是否开启组播
       group_ip: "224.1.1.2"       # 组播IP地址
-
+      #pcap: "xxx.pcap"          # PCAP文件路径，离线解析PCAP数据时打开注释
+      
       # 点云处理参数
       pcl_type: false             # 点云类型  true: xyzi
       frame_id: "laser_link"      # 坐标系名称
@@ -179,7 +180,6 @@ cx:  							  # 确保与对应launch文件中命名空间一致
           0.0,
           1.0,
         ]
-      # pcap: "xxx.pcap"          # PCAP文件路径，离线解析PCAP数据时打开注释
 ~~~
 
 ### 主要参数说明：
@@ -696,3 +696,17 @@ Modify:
 1. 新增矩阵参数，进行预处理
 
 Date    : 2025-05-27
+
+------
+
+Update version : LSLIDAR_ROS2_V5.1.2_250808
+
+Modify: 
+
+1. 新增C_v3.0定制版本数据包长度为1212byte的兼容
+2. 新增CH1W雷达型号的兼容
+
+Date    : 2025-08-08
+
+------
+

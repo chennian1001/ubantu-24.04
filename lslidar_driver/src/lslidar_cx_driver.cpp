@@ -1028,6 +1028,59 @@ namespace lslidar_driver {
             number_threshold = 1;
             if (pkt->data[1210] == 0x39)  return_mode = 2;
             LS_INFO << "return mode: " << return_mode << LS_END;
+        } else if (3 == fpga_type && pkt->data[1211] == 0x10) {
+            for (int j = 0; j < 16; ++j) {
+                if (fabs(c16_30_vertical_angle[j] - config_vertical_angle_32[j]) > 1.5) {
+                    config_vert_num++;
+                }
+            }
+            if (config_vert_num == 0) {
+                for (int k = 0; k < 16; ++k) {
+                    sin_scan_altitude[k] = sin(config_vertical_angle_32[k] * DEG_TO_RAD);
+                    cos_scan_altitude[k] = cos(config_vertical_angle_32[k] * DEG_TO_RAD);
+                }
+            } else {
+                for (int k = 0; k < 16; ++k) {
+                    sin_scan_altitude[k] = sin(c16_30_vertical_angle[k] * DEG_TO_RAD);
+                    cos_scan_altitude[k] = cos(c16_30_vertical_angle[k] * DEG_TO_RAD);
+                }
+            }
+            ring_ = 16;
+            lidar_number_ = 16;
+            R1 = R2_;
+            conversionAngle = conversionAngle_C16_3;
+            distance_unit = 0.25;
+            lidar_model = "c16_3";
+            LS_INFO << "lidar model: c16, version 3.0" << LS_END;
+            if (pkt->data[1204] == 0x39) return_mode = 2;
+            LS_INFO << "return mode: " << return_mode << LS_END;
+        } else if (3 == fpga_type && pkt->data[1211] == 0x20) {
+            for (int j = 0; j < 32; ++j) {
+                config_vertical_angle_tmp[j] = config_vertical_angle_32[adjust_angle_index[j]];
+
+                if (fabs(c32_30_vertical_angle[j] - config_vertical_angle_tmp[j]) > 3.0) {
+                    config_vert_num++;
+                }
+            }
+            if (config_vert_num == 0) {
+                for (int k = 0; k < 32; ++k) {
+                    sin_scan_altitude[k] = sin(config_vertical_angle_tmp[k] * DEG_TO_RAD);
+                    cos_scan_altitude[k] = cos(config_vertical_angle_tmp[k] * DEG_TO_RAD);
+                }
+            } else {
+                for (int k = 0; k < 32; ++k) {
+                    sin_scan_altitude[k] = sin(c32_30_vertical_angle[k] * DEG_TO_RAD);
+                    cos_scan_altitude[k] = cos(c32_30_vertical_angle[k] * DEG_TO_RAD);
+                }
+            }
+            ring_ = 31;
+            lidar_number_ = 32;
+            R1 = R3_;
+            conversionAngle = conversionAngle_C32_3;
+            lidar_model = "c32_3";
+            LS_INFO << "lidar model: c32, version 3.0 " << LS_END;
+            if (pkt->data[1204] == 0x39) return_mode = 2;
+            LS_INFO << "return mode: " << return_mode << LS_END;
         } else if (pkt->data[1211] == 0x03) {
             for (int i = 0; i < 1; ++i) {
                 sin_scan_altitude[i] = sin(c1_vertical_angle[i] * DEG_TO_RAD);
@@ -1042,7 +1095,7 @@ namespace lslidar_driver {
             number_threshold = 1;
             if (pkt->data[1210] == 0x39)  return_mode = 2;
             LS_INFO << "return mode: " << return_mode << LS_END;
-        } else if(pkt->data[1211] == 0x06){
+        } else if (pkt->data[1211] == 0x06){
             for (int i = 0; i < 1; ++i) {
                 sin_scan_altitude[i] = sin(c1_vertical_angle[i] * DEG_TO_RAD);
                 cos_scan_altitude[i] = cos(c1_vertical_angle[i] * DEG_TO_RAD);

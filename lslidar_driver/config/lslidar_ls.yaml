@@ -10,7 +10,8 @@ ls:
       add_multicast: false        # 雷达是否开启组播
       group_ip: "224.1.1.2"       # 组播IP地址
       packet_loss: false          # 是否开启丢包检测
-
+      #pcap: "/home/ls/Desktop/lidar_data.pcap"          # PCAP文件路径，离线解析PCAP数据时打开注释
+      
       # 点云处理参数
       is_add_frame: false         # 是否叠帧发布点云信息
       frame_id: "laser_link"      # 坐标系名称
@@ -72,4 +73,3 @@ ls:
           1.0,
         ]
 
-      # pcap: "xxx.pcap"          # PCAP文件路径，离线解析PCAP数据时打开注释

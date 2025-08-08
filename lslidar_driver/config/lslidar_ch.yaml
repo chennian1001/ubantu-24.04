@@ -2,14 +2,15 @@ ch:
   lslidar_driver_node:
     ros__parameters:
       lidar_type: "CH"            # 雷达类型
-      lidar_model: "CX126S3"      # 雷达型号 CX1S3 CX6S3 CH16S1 CH32A CH64W CB64S1_A CX126S3 CH128X1 CH128S1 CX128S2 CH256
+      lidar_model: "CX126S3" 	   # 雷达型号 CX1S3 CX6S3 CH16S1 CH32A CH1W CH64W CB64S1_A CX126S3 CH128X1 CH128S1 CX128S2 CH256
       device_ip: "192.168.1.200"  # 雷达IP地址
       msop_port: 2368             # 雷达目的数据端口
       difop_port: 2369            # 雷达目的设备端口
       packet_rate: 9000.0         # PCAP文件回放速率，离线解析PCAP数据时使用
       add_multicast: false        # 雷达是否开启组播
       group_ip: "224.1.1.2"       # 组播IP地址
-
+      #pcap: "/home/ls/Desktop/ch1w.pcap"          # PCAP文件路径，离线解析PCAP数据时打开注释
+      
       # 点云处理参数
       frame_id: "laser_link"      # 坐标系名称
       pointcloud_topic: "lslidar_point_cloud"  # 点云话题名
@@ -18,8 +19,8 @@ ch:
       use_absolute_time: false    # 点时间格式 true: 使用绝对时间  注意与点云头文件中USE_ABSOLUTE_TIME保持一致
       min_range: 0.15             # 雷达扫描最小距离 小于该值的点将被过滤(m)
       max_range: 500.0            # 雷达扫描最大距离 大于该值的点将被过滤(m)
-      scan_start_angle: 3000      # 雷达扫描最小角度 填整数 单位: 0.01°  64线雷达最小角度为 0
-      scan_end_angle: 15000       # 雷达扫描最大角度 填整数 单位: 0.01°  64线雷达最大角度为 18000
+      scan_start_angle: 3000      # 雷达扫描最小角度 填整数 单位: 0.01°  CH64W和CH1W 雷达最小角度为 0
+      scan_end_angle: 15000       # 雷达扫描最大角度 填整数 单位: 0.01°  CH64W和CH1W 雷达最大角度为 18000
       echo_mode: 0                # 双回波模式下生效 0:发布全部点云  1:发布第一次回波点云  2:发布第二次回波点云
       horizontal_angle_resolution: 0.15  # Laserscan 水平角分辨率
       publish_scan: false         # LaserScan输出控制
@@ -74,4 +75,4 @@ ch:
           1.0,
         ]
 
-      # pcap: "xxx.pcap"          # PCAP文件路径，离线解析PCAP数据时打开注释
+
