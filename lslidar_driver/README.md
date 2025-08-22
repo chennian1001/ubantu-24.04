@@ -1,7 +1,7 @@
-# LSLIDAR_ROS2_V5.1.2_250808 使用说明
+# LSLIDAR_ROS2_V5.1.3_250822 使用说明
 
 ## 1.工程介绍
-​		LSLIDAR_ROS2_V5.1.2_250808为linux环境下雷达ROS2驱动，程序在Ubuntu 18.04 ROS2 Dashing 和 Ubuntu 18.04 ROS2 Eloquent 和 Ubuntu 20.04 ROS2 Foxy 和 Ubuntu 20.04 ROS2 Galactic 和 Ubuntu 22.04 ROS2 Humble 和 Ubuntu 24.04 ROS2 Jazzy 和 Ubuntu 24.04 ROS2 Rolling下测试通过。
+​		LSLIDAR_ROS2_V5.1.3_250822为linux环境下雷达ROS2驱动，程序在Ubuntu 18.04 ROS2 Dashing 和 Ubuntu 18.04 ROS2 Eloquent 和 Ubuntu 20.04 ROS2 Foxy 和 Ubuntu 20.04 ROS2 Galactic 和 Ubuntu 22.04 ROS2 Humble 和 Ubuntu 24.04 ROS2 Jazzy 和 Ubuntu 24.04 ROS2 Rolling下测试通过。
 
 #### 1.1 支持的雷达型号
 
@@ -494,7 +494,7 @@ ros2 service call /cx/motor_control lslidar_msgs/srv/MotorControl "{motor_contro
 ~~~bash
 #新开一个终端 cx为命名空间
 source install/setup.bash
-#可选频率  5Hz/10Hz/20Hz
+#可选频率  5Hz/10Hz/20Hz  (扩展30 40 50 60仅只有CX1S3可设置)
 ros2 service call /cx/motor_speed lslidar_msgs/srv/MotorSpeed "{motor_speed: '20'}"
 ~~~
 
@@ -710,3 +710,10 @@ Date    : 2025-08-08
 
 ------
 
+update version : LSLIDAR_ROS_V5.1.3_250822
+
+Modify: 
+
+1. 扩展转速设置 (扩展到30 40 50 60仅只有CX1S3可设置)
+
+Date    : 2025-08-22

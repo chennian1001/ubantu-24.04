@@ -1,7 +1,7 @@
-## Instruction Manual for LSLIDAR_ROS2_V5.1.1_250808
+## Instruction Manual for LSLIDAR_ROS2_V5.1.3_250822
 
 ### 1.Project Introduction
-​		LSLIDAR_ROS2_V5.1.1_250808 is a ROS2 driver for LiDAR in Linux environments. The program has been successfully tested on Ubuntu 18.04 with ROS2 Dashing, Ubuntu 18.04 ROS2 with Eloquent, Ubuntu 20.04 with ROS2 Foxy, Ubuntu 20.04 with ROS2 Galactic, Ubuntu 22.04 with ROS2 Humble, Ubuntu 24.04 with ROS2 Jazzy, and Ubuntu 24.04 with ROS2 Rolling.
+​		LSLIDAR_ROS2_V5.1.3_250822 is a ROS2 driver for LiDAR in Linux environments. The program has been successfully tested on Ubuntu 18.04 with ROS2 Dashing, Ubuntu 18.04 ROS2 with Eloquent, Ubuntu 20.04 with ROS2 Foxy, Ubuntu 20.04 with ROS2 Galactic, Ubuntu 22.04 with ROS2 Humble, Ubuntu 24.04 with ROS2 Jazzy, and Ubuntu 24.04 with ROS2 Rolling.
 
 #### 1.1  Supported Lidar Models
 
@@ -498,7 +498,7 @@ ros2 service call /cx/motor_control lslidar_msgs/srv/MotorControl "{motor_contro
 ~~~bash
 # Open a new terminal. cx is the namespace.
 source install/setup.bash
-# Optional frequency  5Hz/10Hz/20Hz
+# Optional frequency  5Hz/10Hz/20Hz (Extensions 30, 40, 50, 60 are only settable for CX1S3)
 ros2 service call /cx/motor_speed lslidar_msgs/srv/MotorSpeed "{motor_speed: '20'}"
 ~~~
 
@@ -710,6 +710,16 @@ Modify:
 2. Compatibility with the  added CH1W lidar model
 
 Date    : 2025-08-08
+
+------
+
+update version : LSLIDAR_ROS_V5.1.3_250822
+
+Modify: 
+
+1. Extended speed setting (extended to 30, 40, 50, 60, only available for CX1S3)
+
+Date    : 2025-08-22
 
 ------
 
