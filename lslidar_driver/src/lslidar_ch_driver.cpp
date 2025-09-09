@@ -975,7 +975,8 @@ namespace lslidar_driver {
 
         // laserscan
         if (publish_laserscan) {
-            if (channel_num == lidardata.vertical_line) {
+           // if (channel_num == lidardata.vertical_line) 
+            {
                 updateLaserscan(x, y, lidardata.intensity);
             }
         }
