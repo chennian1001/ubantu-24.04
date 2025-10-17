@@ -1,7 +1,7 @@
-## Instruction Manual for LSLIDAR_ROS2_V5.1.3_250909
+## Instruction Manual for LSLIDAR_ROS2_V5.1.4_251017
 
 ### 1.Project Introduction
-​		LSLIDAR_ROS2_V5.1.3_250909 is a ROS2 driver for LiDAR in Linux environments. The program has been successfully tested on Ubuntu 18.04 with ROS2 Dashing, Ubuntu 18.04 ROS2 with Eloquent, Ubuntu 20.04 with ROS2 Foxy, Ubuntu 20.04 with ROS2 Galactic, Ubuntu 22.04 with ROS2 Humble, Ubuntu 24.04 with ROS2 Jazzy, and Ubuntu 24.04 with ROS2 Rolling.
+​		LSLIDAR_ROS2_V5.1.4_251017 is a ROS2 driver for LiDAR in Linux environments. The program has been successfully tested on Ubuntu 18.04 with ROS2 Dashing, Ubuntu 18.04 ROS2 with Eloquent, Ubuntu 20.04 with ROS2 Foxy, Ubuntu 20.04 with ROS2 Galactic, Ubuntu 22.04 with ROS2 Humble, Ubuntu 24.04 with ROS2 Jazzy, and Ubuntu 24.04 with ROS2 Rolling.
 
 #### 1.1  Supported Lidar Models
 
@@ -724,3 +724,12 @@ Date    : 2025-09-09
 
 ------
 
+update version : LSLIDAR_ROS_V5.1.4_251017
+
+Modify: 
+
+1. Set the UDP receive buffer to 2M
+1. Add a feature for the radar to determine whether to use radar range initialization for scanning
+1. Modify the issue of opposite point cloud direction in the m10/n10 series lidar
+
+Date    : 2025-10-17

@@ -1,7 +1,7 @@
-# LSLIDAR_ROS2_V5.1.3_250909 使用说明
+# LSLIDAR_ROS2_V5.1.4_251017使用说明
 
 ## 1.工程介绍
-​		LSLIDAR_ROS2_V5.1.3_250909为linux环境下雷达ROS2驱动，程序在Ubuntu 18.04 ROS2 Dashing 和 Ubuntu 18.04 ROS2 Eloquent 和 Ubuntu 20.04 ROS2 Foxy 和 Ubuntu 20.04 ROS2 Galactic 和 Ubuntu 22.04 ROS2 Humble 和 Ubuntu 24.04 ROS2 Jazzy 和 Ubuntu 24.04 ROS2 Rolling下测试通过。
+​		LSLIDAR_ROS2_V5.1.4_2501017为linux环境下雷达ROS2驱动，程序在Ubuntu 18.04 ROS2 Dashing 和 Ubuntu 18.04 ROS2 Eloquent 和 Ubuntu 20.04 ROS2 Foxy 和 Ubuntu 20.04 ROS2 Galactic 和 Ubuntu 22.04 ROS2 Humble 和 Ubuntu 24.04 ROS2 Jazzy 和 Ubuntu 24.04 ROS2 Rolling下测试通过。
 
 #### 1.1 支持的雷达型号
 
@@ -718,3 +718,15 @@ Modify:
 1. CX1S3修改使用laserscan 点云跳动不正确的问题
 
 Date    : 2025-09-09
+
+------
+
+update version : LSLIDAR_ROS_V5.1.4_251017
+
+Modify: 
+
+1. 设置 UDP 接收缓存区 2M
+1. 增加雷达判断是否使用雷达范围初始化 scan
+1. 修改 m10/n10 系列雷达点云相反的问题
+
+Date    : 2025-10-17
