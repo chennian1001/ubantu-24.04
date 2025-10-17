@@ -493,8 +493,8 @@ namespace lslidar_driver {
             float cos_azimuth = cos_azimuth_table[table_idx];
             float sin_azimuth = sin_azimuth_table[table_idx];
 
-            float x_coord = points[fir_idx].distance * sin_azimuth;
-            float y_coord = points[fir_idx].distance * cos_azimuth;
+            float x_coord = points[fir_idx].distance * cos_azimuth;
+            float y_coord = -points[fir_idx].distance * sin_azimuth;
 
             if (is_valid_point) {
                 //add point
@@ -587,8 +587,8 @@ namespace lslidar_driver {
                 float cos_azimuth = cos_azimuth_table[table_idx];
                 float sin_azimuth = sin_azimuth_table[table_idx];
 
-                float x_coord = points[fir_idx].distance * sin_azimuth;
-                float y_coord = points[fir_idx].distance * cos_azimuth;
+                float x_coord = points[fir_idx].distance * cos_azimuth;
+                float y_coord = -points[fir_idx].distance * sin_azimuth;
 
                 if (is_valid_point) {
                     //add point
