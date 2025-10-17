@@ -23,7 +23,7 @@ cx:
       angle_disable_max: 0        # 雷达扫描最大裁剪角度 填整数 单位: 0.01°
       horizontal_angle_resolution: 0.18  # Laserscan 水平角分辨率  5Hz:0.09 20Hz:0.36 
       publish_scan: false         # LaserScan输出控制
-      scan_num: 0                 # LaserScan线号
+      scan_num: 8                 # LaserScan线号
       filter_angle_file: "config/filter_angle.yaml"  # 角度滤波文件路径
 
       # 点云坐标系转换参数
