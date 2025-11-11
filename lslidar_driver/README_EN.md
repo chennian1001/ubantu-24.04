@@ -713,7 +713,7 @@ Date    : 2025-08-08
 
 ------
 
-update version : LSLIDAR_ROS_V5.1.3_250909
+update version : LSLIDAR_ROS2_V5.1.3_250909
 
 Modify: 
 
@@ -724,7 +724,7 @@ Date    : 2025-09-09
 
 ------
 
-update version : LSLIDAR_ROS_V5.1.4_251104
+update version : LSLIDAR_ROS2_V5.1.4_251104
 
 Modify: 
 
