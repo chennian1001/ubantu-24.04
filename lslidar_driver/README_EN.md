@@ -1,7 +1,7 @@
-## Instruction Manual for LSLIDAR_ROS2_V5.2.0_20251225
+## Instruction Manual for LSLIDAR_ROS2_V5.2.0_20260112
 
 ### 1.Project Introduction
-​		LSLIDAR_ROS2_V5.2.0_20251225 is a ROS2 driver for LiDAR in Linux environments. The program has been successfully tested on Ubuntu 18.04 with ROS2 Dashing, Ubuntu 18.04 ROS2 with Eloquent, Ubuntu 20.04 with ROS2 Foxy, Ubuntu 20.04 with ROS2 Galactic, Ubuntu 22.04 with ROS2 Humble, Ubuntu 24.04 with ROS2 Jazzy, and Ubuntu 24.04 with ROS2 Rolling.
+​		LSLIDAR_ROS2_V5.2.0_20260112 is a ROS2 driver for LiDAR in Linux environments. The program has been successfully tested on Ubuntu 18.04 with ROS2 Dashing, Ubuntu 18.04 ROS2 with Eloquent, Ubuntu 20.04 with ROS2 Foxy, Ubuntu 20.04 with ROS2 Galactic, Ubuntu 22.04 with ROS2 Humble, Ubuntu 24.04 with ROS2 Jazzy, and Ubuntu 24.04 with ROS2 Rolling.
 
 #### 1.1  Supported Lidar Models
 
@@ -737,10 +737,11 @@ Date    : 2025-11-04
 
 ------
 
-update version : LSLIDAR_ROS2_V5.2.0_20251225
+update version : LSLIDAR_ROS2_V5.2.0_20260112
 
 Modify: 
 
 1. Add a struct with defined fields to assign RGB values to each point cloud
+1. Modify the LSS3 driver to be compatible with MS06
 
-Date    : 2025-12-25
+Date    : 2026-01-12
