@@ -739,7 +739,7 @@ namespace lslidar_driver {
             g_fAngleAcc_V = 0.01;
             g_fDistanceAcc = 0.004;
             get_ms06_param = false;
-            lidar_model == "MS06"
+            lidar_model == "MS06";
             LS_INFO << "Lidar model MS06" << LS_END;
         }
 
